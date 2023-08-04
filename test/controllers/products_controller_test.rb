@@ -25,8 +25,6 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show product" do
-    p product_url(@product)
-    exit
     get product_url(@product)
     assert_response :success
   end

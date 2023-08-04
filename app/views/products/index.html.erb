@@ -21,7 +21,7 @@
     <tbody>
       <% @products.each do |product| %>
         <tr class="<%= cycle('bg-green-50', 'bg-white') %>">
-          <td class="px-2 py-3">
+          <td class="px-2 py-8">
             <%= image_tag(product.image_url, class: 'w-40') %>
           </td>
 
