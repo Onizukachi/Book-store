@@ -1,5 +1,6 @@
 class CartsController < ApplicationController
   before_action :set_cart, only: %i[ show edit update destroy ]
+  before_action :check_permission, only: %i[show edit update destroy]
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart
 
   # GET /carts or /carts.json
@@ -63,6 +64,7 @@ class CartsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_cart
       @cart = Cart.find(params[:id])
+      session[:cart_id] = @cart.id
     end
 
     # Only allow a list of trusted parameters through.
@@ -73,5 +75,9 @@ class CartsController < ApplicationController
     def invalid_cart
       logger.error "Attempt to access invalid cart #{params[:id]}"
       redirect_to store_index_path, notice: 'Invalid cart'
+    end
+
+    def check_permission
+      raise ActiveRecord::RecordNotFound unless session[:cart_id] == request.params[:id].to_i
     end
 end

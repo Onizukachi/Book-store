@@ -24,6 +24,23 @@ class LineItemsControllerTest < ActionDispatch::IntegrationTest
 
     assert_select 'h2', 'Your Cart'
     assert_select 'td', "Programming Ruby 1.9"
+    assert_select 'td', "1"
+  end
+
+  test "should update only quantity in line item when added same product" do 
+    2.times do
+      post line_items_url, params: { product_id: products(:ruby).id }
+    end
+
+    assert_no_difference("LineItem.count") do
+      post line_items_url, params: { product_id: products(:ruby).id }
+    end
+
+    follow_redirect!
+
+    assert_select 'h2', 'Your Cart'
+    assert_select 'td', "Programming Ruby 1.9"
+    assert_select 'td', "3"
   end
 
   test "should show line_item" do
@@ -41,11 +58,11 @@ class LineItemsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to line_item_url(@line_item)
   end
 
-  test "should destroy line_item" do
+  test "should destroy line_item from cart" do
     assert_difference("LineItem.count", -1) do
       delete line_item_url(@line_item)
     end
 
-    assert_redirected_to line_items_url
+    assert_redirected_to cart_url(@line_item.cart)
   end
 end

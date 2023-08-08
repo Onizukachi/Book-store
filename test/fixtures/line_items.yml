@@ -3,7 +3,24 @@
 one:
   product: two
   cart: one
+  product_price: two(:price)
 
 two:
   product: two
   cart: two
+  product_price: two(:price)
+
+three:
+  product: two
+  cart: one
+  product_price: two(:price)
+
+four:
+  product: ruby
+  cart: one
+  product_price: two(:price)
+
+five:
+  product: ruby
+  cart: two
+  product_price: two(:price)
