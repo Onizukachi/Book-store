@@ -27,6 +27,16 @@ class LineItemsControllerTest < ActionDispatch::IntegrationTest
     assert_select 'td', "1"
   end
 
+  test "should create line_item via turbo-streams" do
+    assert_difference("LineItem.count") do
+      post line_items_url, params: { product_id: products(:ruby).id },
+        as: :turbo_stream
+    end
+
+    assert_response :success
+    assert_match /<tr class=line-item-highlight>/, @response.body
+  end
+
   test "should update only quantity in line item when added same product" do 
     2.times do
       post line_items_url, params: { product_id: products(:ruby).id }

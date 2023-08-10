@@ -2,15 +2,7 @@
   <h2 class='font-bold text-lg mb-3'>Your Cart</h2>
 
   <table class='table-auto'>
-    <% cart.line_items.each do |line_item| %>
-      <tr>
-        <td class='text-right'><%= line_item.quantity %></td>
-        <td>&times;</td>
-        <td class='pr-2'><%= line_item.product.title %></td>
-        <td class='font-bold text-right'><%= number_to_currency(line_item.total_price) %></td>
-        <td><%= button_to 'Delete', line_item, method: :delete, class: 'px-2 text-white ml-4 bg-red-400 rounded-lg' %></td>
-      </tr>
-    <% end %>
+    <%= render cart.line_items %>
 
     <tfoot>
       <tr>
@@ -19,6 +11,8 @@
       </tr>
     </tfoot>
   </table>
+
+  <%= button_to 'Empty Card', cart, method: :delete, class: 'bg-green-600 rounded-lg px-3 py-1 ml-4 text-white' %>
 </div>
 
-<%= button_to 'Empty Card', cart, method: :delete, class: 'bg-green-600 rounded-lg px-3 py-1 ml-4 text-white' %>
+
