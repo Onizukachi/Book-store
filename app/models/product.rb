@@ -1,6 +1,8 @@
 class Product < ApplicationRecord
   has_many :line_items
 
+  #after_update_commit -> { broadcast_prepend_to "products", partial: "products/product", locals: { quote: self }, target: "products" }
+
   before_destroy :ensure_not_referenced_by_any_line_item
 
 
