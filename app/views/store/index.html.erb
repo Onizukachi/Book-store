@@ -5,7 +5,7 @@
     Your Catalog
   </h1>
 
-  <%= turbo_stream_from 'products' %>
+  <%= turbo_stream_from "products", channel: ProductsChannel %>
 
   <ul>
     <% cache @products do %>
