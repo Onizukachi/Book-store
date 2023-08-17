@@ -45,7 +45,7 @@ class CartsController < ApplicationController
         format.html { redirect_to cart_url(@cart), notice: "Cart was successfully updated." }
         format.json { render :show, status: :ok, location: @cart }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { rend  er :edit, status: :unprocessable_entity }
         format.json { render json: @cart.errors, status: :unprocessable_entity }
       end
     end
@@ -59,6 +59,7 @@ class CartsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to store_index_url, notice: "Your cart is currently empty" }
       format.json { head :no_content }
+      format.turbo_stream
     end
   end
 
