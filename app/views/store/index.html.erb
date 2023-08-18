@@ -6,6 +6,7 @@
   </h1>
 
   <%= turbo_stream_from "products", channel: ProductsChannel %>
+  <%= turbo_stream_from "carts" %>
 
   <ul>
     <% cache @products do %>
