@@ -3,6 +3,7 @@ require "test_helper"
 class LineItemsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @line_item = line_items(:one)
+    @line_item_with_quantity_1 = line_items(:five)
   end
 
   test "should get index" do
@@ -34,7 +35,7 @@ class LineItemsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_response :success
-    assert_match /<tr class=line-item-highlight>/, @response.body
+    assert_match /<tr.+?class=line-item-highlight>/, @response.body
   end
 
   test "should update only quantity in line item when added same product" do 
@@ -68,11 +69,17 @@ class LineItemsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to line_item_url(@line_item)
   end
 
-  test "should destroy line_item from cart" do
-    assert_difference("LineItem.count", -1) do
+  test "should decrease line_item quanitity from cart" do
+    assert_difference('@line_item.reload.quantity', -1) do
       delete line_item_url(@line_item)
     end
+    
+    assert_redirected_to store_index_path
+  end
 
-    assert_redirected_to cart_url(@line_item.cart)
+  test "should destroy line_item from cart" do
+    delete line_item_url(@line_item_with_quantity_1)
+    assert_nil LineItem.find_by(id: @line_item_with_quantity_1.id)
+    assert_redirected_to store_index_path
   end
 end

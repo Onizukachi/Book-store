@@ -3,24 +3,24 @@
 one:
   product: two
   cart: one
-  product_price: two(:price)
+  quantity: 2
 
 two:
   product: two
   cart: two
-  product_price: two(:price)
+  quantity: 3
 
 three:
-  product: two
-  cart: one
-  product_price: two(:price)
-
-four:
   product: ruby
   cart: one
-  product_price: two(:price)
+  quantity: 3
+
+four:
+  product: one
+  cart: one
+  quantity: 2
 
 five:
   product: ruby
   cart: two
-  product_price: two(:price)
+  quantity: 1

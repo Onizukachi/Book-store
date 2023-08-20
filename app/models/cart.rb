@@ -14,10 +14,9 @@ class Cart < ApplicationRecord
   end
 
   def destroy_or_decrease_quantity(line_item)
-    check = self.line_items.include?(line_item)
-    if check && line_item.quantity > 1
+    if line_item.quantity > 1
        line_item.update(quantity: line_item.quantity - 1)
-    elsif check
+    else
        line_item.destroy
     end
   end
