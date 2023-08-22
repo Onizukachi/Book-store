@@ -26,3 +26,4 @@ consumer.subscriptions.create({channel: "CartsChannel"}, {
     // Called when there's incoming data on the websocket for this channel
   }
 });
+
