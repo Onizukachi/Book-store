@@ -24,3 +24,9 @@ five:
   product: ruby
   cart: two
   quantity: 1
+
+six:
+  product: ruby
+  cart: three
+  quantity: 1
+  order: one

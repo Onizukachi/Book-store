@@ -4,10 +4,13 @@ one:
   name: Dave Thomas
   address: MyText
   email: dave@example.org
-  pay_type: Check
+  pay_type: Check 
+  routing_number: '2132132141'
+  account_number: '768754323'
   
 two:
  name: MyString
  address: MyText
  email: MyString
- pay_type: 1
+ pay_type: 2
+ po_number: '754345342'
