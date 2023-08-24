@@ -10,7 +10,7 @@ class OrderMailerTest < ActionMailer::TestCase
   end
 
   test "shipped" do
-    mail = OrderMailer. shipped(orders(:one))
+    mail = OrderMailer.shipped(orders(:one))
     assert_equal "Hikaru Book Store Order Shipped", mail. subject
     assert_equal [ "dave@example.org"], mail.to
     assert_equal [ "linolium.91@mail.com"], mail.from

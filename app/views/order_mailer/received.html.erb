@@ -9,8 +9,8 @@
         <%= line_item.quantity %>
       </td>
       <td>&times;</td>
-      <td class='pr-2'><%= line_item.product.title %></td>
-      <td class='font-bold text-right'>
+      <td><%= line_item.product.title %></td>
+      <td>
         <%= number_to_currency(line_item.total_price) %>
       </td>
     </tr>
@@ -18,3 +18,11 @@
 </table>
 
 <p>We'll send you a separate e-mail when your order ships.</p>
+
+<%= image_tag 'ThankYouEmail.png', alt: 'Embedded Image' %>
+
+<div>
+  <%= link_to "Visit us again", products_url %>
+</div>
+
+
