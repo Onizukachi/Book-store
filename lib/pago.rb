@@ -2,7 +2,6 @@ require 'ostruct'
 
 class Pago
   def self.make_payment(order_id:, payment_method:, payment_details:)
-
     case payment_method
     when :check
       Rails.logger.info 'Prodessing check: ' + payment_details.fetch(:routing).to_s + 
@@ -15,7 +14,6 @@ class Pago
       Rails.logger.info "Processing purchase order: " + payment_details.fetch(:po_num).to_s
     else
       raise "Unknown payment_method #{payment_method }"
-      end
     end
 
     sleep 3 unless Rails.env.test?
