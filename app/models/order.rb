@@ -4,6 +4,8 @@ require 'pago'
 class Order < ApplicationRecord
   include ActiveModel::Serializers::Xml
 
+  before_update :send_notification_when_shipped, if: :ship_date_updated?
+
   enum pay_type: {
     "Check" => 0,
     "Credit card" => 1,
@@ -68,6 +70,14 @@ class Order < ApplicationRecord
   
   def credit_card_payment?
     pay_type == 'Credit card'
+  end
+
+  def ship_date_updated?
+    ship_date_changed?
+  end
+
+  def send_notification_when_shipped
+    ShipOrderJob.perform_later(self)
   end
 end
 

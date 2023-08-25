@@ -1,4 +1,5 @@
 <h3>Hikaru Book Store Order Shipped</h3>
+<h1>Dear <%= @order.name %></h1>
 <p>
  This is just to let you know that we've shipped your recent order:
 </p>
@@ -10,8 +11,8 @@
         <%= line_item.quantity %>
       </td>
       <td>&times;</td>
-      <td class='pr-2'><%= line_item.product.title %></td>
-      <td class='font-bold text-right'>
+      <td><%= line_item.product.title %></td>
+      <td>
         <%= number_to_currency(line_item.total_price) %>
       </td>
     </tr>
