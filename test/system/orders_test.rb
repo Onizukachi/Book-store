@@ -1,47 +1,47 @@
 require "application_system_test_case"
 
 class OrdersTest < ApplicationSystemTestCase
-  setup do
-    @order = orders(:one)
-  end
+  include ActiveJob::TestHelper
 
-  test "visiting the index" do
-    visit orders_url
-    assert_selector "h1", text: "Orders"
-  end
+  test "check order and delivery" do
+    LineItem.delete_all
+    Order.delete_all
 
-  test "should create order" do
-    visit orders_url
-    click_on "New order"
+    visit store_index_url
 
-    fill_in "Address", with: @order.address
-    fill_in "Email", with: @order.email
-    fill_in "Name", with: @order.name
-    fill_in "Pay type", with: @order.pay_type
-    click_on "Create Order"
+    click_on 'Add to Cart', match: :first
 
-    assert_text "Order was successfully created"
-    click_on "Back"
-  end
+    click_on 'Checkout'
 
-  test "should update Order" do
-    visit order_url(@order)
-    click_on "Edit this order", match: :first
+    fill_in 'Name', with: 'Alexey Glazkov'
+    fill_in 'Address', with: 'Alasheevka 149'
+    fill_in 'Email', with: 'dark_sao@mail.ru'
 
-    fill_in "Address", with: @order.address
-    fill_in "Email", with: @order.email
-    fill_in "Name", with: @order.name
-    fill_in "Pay type", with: @order.pay_type
-    click_on "Update Order"
+    select 'Check', from: 'Pay type'
+    fill_in 'Routing number', with: '123456'
+    fill_in 'Account number', with: '9867654'
 
-    assert_text "Order was successfully updated"
-    click_on "Back"
-  end
+    click_button "Place Order"
+    assert_text 'Thank you for your order'
 
-  test "should destroy Order" do
-    visit order_url(@order)
-    click_on "Destroy this order", match: :first
+    perform_enqueued_jobs 
+    perform_enqueued_jobs
+    assert_performed_jobs 2
 
-    assert_text "Order was successfully destroyed"
+    orders = Order.all
+    assert_equal 1, orders.size
+
+    order = Order.first
+    assert_equal 'Alexey Glazkov', order.name
+    assert_equal 'Alasheevka 149', order.address
+    assert_equal 'dark_sao@mail.ru', order.email
+    assert_equal 'Check', order.pay_type
+    assert_equal 1, order.line_items.size
+
+    mail = ActionMailer::Base.deliveries.last
+    assert_equal ["dark_sao@mail.ru"], mail.to
+    assert_equal ["linolium.91@mail.com"], mail.from
+    assert_equal "Hikaru Book Store Order Confirmation", mail.subject
+    
   end
 end
