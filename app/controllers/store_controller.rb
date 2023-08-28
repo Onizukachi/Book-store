@@ -4,6 +4,6 @@ class StoreController < ApplicationController
 
   def index
     @products = Product.order(:title)
-    #CartsChannel.broadcast_to('carts', { event: 'product_updated' })
+    CartsChannel.broadcast_to('carts', { event: 'product_updated' })
   end
 end

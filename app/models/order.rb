@@ -61,8 +61,10 @@ class Order < ApplicationRecord
 
     if payment_result.succeeded?
       OrderMailer.received(self).deliver_later
+
+      update(ship_date: Date.today)
     else
-      raise payment_result.error
+      OrderMailer.failed(self).deliver_later
     end
   end
 
@@ -77,7 +79,7 @@ class Order < ApplicationRecord
   end
 
   def send_notification_when_shipped
-    ShipOrderJob.perform_later(self)
+    OrderMailer.shipped(self).deliver_later
   end
 end
 

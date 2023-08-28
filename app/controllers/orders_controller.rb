@@ -32,9 +32,8 @@ class OrdersController < ApplicationController
       if @order.save
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
-
         ChargeOrderJob.perform_later(@order, order_params.to_h)
-        @order.update(ship_date: Date.today)
+        # @order.update(ship_date: Date.today) # Покачто майл о том, что отгрузка произошла, происходит в моделе, так как все это происходит в одной джобе
 
         format.html { redirect_to store_index_url, notice: "Thank you for your order" }
         format.json { render :show, status: :created, location: @order }
