@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_28_104944) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_29_084101) do
   create_table "carts", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -57,6 +57,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_28_104944) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_users_on_name", unique: true
   end
 
   add_foreign_key "line_items", "carts"

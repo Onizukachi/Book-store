@@ -1,6 +1,7 @@
 class CartsController < ApplicationController
   before_action :check_permission, only: %i[show edit update destroy]
   before_action :set_cart, only: %i[ show edit update destroy ]
+  skip_before_action :authorize, only: %i[ create update destroy ]
 
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart
 
