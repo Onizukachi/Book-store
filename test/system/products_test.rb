@@ -12,36 +12,34 @@ class ProductsTest < ApplicationSystemTestCase
 
   test "should create product" do
     visit products_url
-    click_on "New product"
+    click_on "New Product"
 
-    fill_in "Description", with: @product.description
+    fill_in "Description", with: 'New product'
     fill_in "Image url", with: @product.image_url
-    fill_in "Price", with: @product.price
-    fill_in "Title", with: @product.title
+    fill_in "Price", with: '22.12'
+    fill_in "Title", with: 'Spider Man Comics'
     click_on "Create Product"
 
     assert_text "Product was successfully created"
-    click_on "Back"
   end
 
   test "should update Product" do
     visit product_url(@product)
     click_on "Edit this product", match: :first
 
-    fill_in "Description", with: @product.description
+    fill_in "Description", with: 'This product was updated'
     fill_in "Image url", with: @product.image_url
     fill_in "Price", with: @product.price
     fill_in "Title", with: @product.title
     click_on "Update Product"
 
     assert_text "Product was successfully updated"
-    click_on "Back"
   end
 
-  test "should destroy Product" do
+  test "cant destroy Product if included in any line_items" do
     visit product_url(@product)
     click_on "Destroy this product", match: :first
 
-    assert_text "Product was successfully destroyed"
+    assert_text "Product cant be destroyed!"
   end
 end

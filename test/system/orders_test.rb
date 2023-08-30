@@ -26,7 +26,8 @@ class OrdersTest < ApplicationSystemTestCase
 
     perform_enqueued_jobs 
     perform_enqueued_jobs
-    assert_performed_jobs 2
+    perform_enqueued_jobs
+    assert_performed_jobs 3
 
     orders = Order.all
     assert_equal 1, orders.size
@@ -38,10 +39,25 @@ class OrdersTest < ApplicationSystemTestCase
     assert_equal 'Check', order.pay_type
     assert_equal 1, order.line_items.size
 
-    mail = ActionMailer::Base.deliveries.last
-    assert_equal ["dark_sao@mail.ru"], mail.to
-    assert_equal ["linolium.91@mail.com"], mail.from
-    assert_equal "Hikaru Book Store Order Confirmation", mail.subject
-    
+
+    was_shipped = ActionMailer::Base.deliveries.find { |mail| mail.subject.include?('Shipped') }
+    all_mails = ActionMailer::Base.deliveries
+
+    if was_shipped
+    end
+    binding.break
+    assert_equal ["dark_sao@mail.ru"], last_mail.to
+    assert_equal ["linolium.91@mail.com"], last_mail.from
+
+    if last_mail.subject.include?('Shipped')
+      assert_equal "Hikaru Book Store Order Shipped", last_mail.subject
+
+      first_email = ActionMailer::Base.deliveries[-2]
+      assert_equal ["dark_sao@mail.ru"], last_mail.to
+      assert_equal ["linolium.91@mail.com"], last_mail.from
+      assert_equal "Hikaru Book Store Order Confirmation", last_mail.subject
+    else
+      assert_equal "Hikaru Book Store Order Failed", last_mail.subject
+    end
   end
 end
