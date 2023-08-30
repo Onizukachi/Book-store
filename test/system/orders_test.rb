@@ -44,19 +44,19 @@ class OrdersTest < ApplicationSystemTestCase
     all_mails = ActionMailer::Base.deliveries
 
     if was_shipped
-    end
-    binding.break
-    assert_equal ["dark_sao@mail.ru"], last_mail.to
-    assert_equal ["linolium.91@mail.com"], last_mail.from
+      shipped_mail = all_mails.delete_if { |mail| mail.subject.include?('Shipped') }
+      assert_equal ["dark_sao@mail.ru"], shipped_mail.to
+      assert_equal ["linolium.91@mail.com"], shipped_mail.from
+      assert_equal "Hikaru Book Store Order Shipped", shipped_mail.subject
 
-    if last_mail.subject.include?('Shipped')
-      assert_equal "Hikaru Book Store Order Shipped", last_mail.subject
-
-      first_email = ActionMailer::Base.deliveries[-2]
+      confirm_mail = all_mails.last
+      assert_equal ["dark_sao@mail.ru"], confirm_mail.to
+      assert_equal ["linolium.91@mail.com"], confirm_mail.from
+      assert_equal "Hikaru Book Store Order Confirmation", confirm_mail.subject
+    else
+      failed_mail = all_mails.last
       assert_equal ["dark_sao@mail.ru"], last_mail.to
       assert_equal ["linolium.91@mail.com"], last_mail.from
-      assert_equal "Hikaru Book Store Order Confirmation", last_mail.subject
-    else
       assert_equal "Hikaru Book Store Order Failed", last_mail.subject
     end
   end
