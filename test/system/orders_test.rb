@@ -39,15 +39,15 @@ class OrdersTest < ApplicationSystemTestCase
     assert_equal 'Check', order.pay_type
     assert_equal 1, order.line_items.size
 
-
-    was_shipped = ActionMailer::Base.deliveries.find { |mail| mail.subject.include?('Shipped') }
     all_mails = ActionMailer::Base.deliveries
+    was_shipped = all_mails.find { |mail| mail.subject.include?('Shipped') }
+    
 
     if was_shipped
-      shipped_mail = all_mails.delete_if { |mail| mail.subject.include?('Shipped') }
-      assert_equal ["dark_sao@mail.ru"], shipped_mail.to
-      assert_equal ["linolium.91@mail.com"], shipped_mail.from
-      assert_equal "Hikaru Book Store Order Shipped", shipped_mail.subject
+      all_mails.delete was_shipped
+      assert_equal ["dark_sao@mail.ru"], was_shipped.to
+      assert_equal ["linolium.91@mail.com"], was_shipped.from
+      assert_equal "Hikaru Book Store Order Shipped", was_shipped.subject
 
       confirm_mail = all_mails.last
       assert_equal ["dark_sao@mail.ru"], confirm_mail.to

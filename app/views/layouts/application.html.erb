@@ -27,6 +27,17 @@
           <li><a href='/contacts'>Contacts</a></li>
           <li></li>
         </ul>
+
+        <% if session[:user_id] %>
+          <hr class='bg-black my-2 p-0.5 rounded-lg'>
+
+          <ul class='leading-8 font-medium text-lg'>
+            <li><%= link_to 'Orders', orders_path %></li>
+            <li><%= link_to 'Products', products_path %></li>
+            <li><%= link_to 'Users', users_path %></li>
+            <li><%= link_to 'Logout', logout_path, data: { turbo_method: :delete } %></li>
+          </ul>
+        <% end %>
       </nav>
       <main class="container mx-auto mt-4 px-5 flex">
         <%= yield %>
