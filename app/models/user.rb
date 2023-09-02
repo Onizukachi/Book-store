@@ -3,7 +3,7 @@ class User < ApplicationRecord
 
   has_secure_password validations: false 
   validates :name, presence: true, uniqueness: true
-  validate :password_presence
+  validates :password, presence: true, on: :create 
   
   validate :correct_old_password, on: :update, if: -> { password.present? }
   validates :password, confirmation: true, allow_blank: true
@@ -26,10 +26,6 @@ class User < ApplicationRecord
     return if BCrypt::Password.new(password_digest_was).is_password?(old_password)
 
     errors.add :old_password, 'is incorrect'
-  end
-
-  def password_presence
-    errors.add(:password, :blank) if password_digest.blank?
   end
 
   def password_complexity
