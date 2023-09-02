@@ -42,4 +42,27 @@ class ProductsTest < ApplicationSystemTestCase
 
     assert_text "Product cant be destroyed!"
   end
+
+  test "cant interact with products after logout" do
+    click_on 'Logout'
+    assert_text "Logged out"
+    assert_selector "li", text: "Orders", count: 0
+    assert_selector "li", text: "Products", count: 0
+    assert_selector "li", text: "Users", count: 0
+
+    visit users_url
+    assert_text "Please Log in"
+    
+    visit products_url
+    assert_text "Please Log in"
+
+    visit orders_url
+    assert_text "Please Log in"
+
+    visit product_url(@product)
+    assert_text "Please Log in"
+
+    visit user_url(users(:one))
+    assert_text "Please Log in"
+  end
 end

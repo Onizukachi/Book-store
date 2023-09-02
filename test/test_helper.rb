@@ -17,11 +17,11 @@ module SignInHelper
     if respond_to? :visit
       visit login_url
       fill_in :name, with: user.name
-      fill_in :password, with: "secret"
+      fill_in :password, with: "Secret149#13"
       click_on 'Login'
       assert_current_path admin_url
     else
-      post login_url, params: { name: user.name, password: 'secret' }
+      post login_url, params: { name: user.name, password: 'Secret149#13' }
     end
   end
 
