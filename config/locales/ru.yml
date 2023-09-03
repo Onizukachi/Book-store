@@ -1,0 +1,18 @@
+ru:
+  layouts:
+    application:
+      title: "Книжный магазин Хикару"
+      home: "Домой"
+      questions: "Вопросы"
+      news: "Новости"
+      contact: "Связаться"
+  store:
+    index:
+      title_html: "Ваш каталог"
+    product:
+      add_html: "Добавить в корзину"
+  carts:
+    cart: 
+      title: "Ваша корзина"
+      empty: "Очистить"
+      checkout: "Оформить"

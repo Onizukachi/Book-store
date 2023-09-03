@@ -1,0 +1,8 @@
+en:
+  layouts:
+    application:
+      title: "The Pragmatic "
+      home: "Home"
+      questions: "Questions"
+      news: "News"
+      contact: "Contact"
