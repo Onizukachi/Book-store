@@ -12,6 +12,14 @@
 
   <body>
     <header class='bg-yellow-500/25'>
+      <aside data-controller='locale'>
+        <%= form_tag store_index_path, method: 'get', class: 'locale' do %>
+          <%= select_tag 'set_locale', options_for_select(LANGUAGES, I18n.locale.to_s),
+              onchange: 'this.form.submit()' %>
+          <%= submit_tag 'submit', data: {'locale-target' => 'submit'} %>
+        <% end %>
+      </aside>
+
       <%= image_tag 'my_header_logo.png', class: 'h-16' %>
       <h1><%= @page_title %></h1>
     </header>

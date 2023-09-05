@@ -16,3 +16,46 @@ ru:
       title: "Ваша корзина"
       empty: "Очистить"
       checkout: "Оформить"
+  orders:
+    new: 
+      legend: "Пожалуйста, введите Свои данные"
+    form:
+      name: "Имя"
+      address_html: "Адрес"
+      email: "E-mail"
+      pay_type: "Оплатить с помощью:"
+      pay_prompt_html: "Выбрать тип оплаты"
+      submit: "Разместить заказ"
+      pay_types:
+        "Check": "Чек"
+        "Credit card": "Кридетная карта"
+        "Purchase order": "Наложенный платеж"
+    check:
+      routing_number: "Маршрут #"
+      account_number: "Аккаунт #"
+    cc:
+      cc_number: "Номер карты #"
+      expiration_date: "Дата истечения"
+    po:
+      po_number: "PO #"
+    
+  activerecord:
+    models:
+      order: 'Заказа'
+    attributes:
+      order:
+        address: "Адрес"
+        name: 'Имя'
+        email: 'E-mail'
+        pay_type: 'Способ оплаты'
+    errors: 
+      messages:
+        inclusion: "не входит в доступный список"
+        blank: "не может быть пустым"
+  errors:
+    template:
+      body: "Существуют проблемы со следующими полями:"
+      header:
+        one: "1 ошибка помешала сохранению %{model}"
+        other: "%{count} ошибки помешало сохранению %{model}"
+  thanks: "Спасибо за ваш заказ"
