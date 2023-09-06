@@ -11,17 +11,22 @@
   </head>
 
   <body>
-    <header class='bg-yellow-500/25'>
-      <aside data-controller='locale'>
-        <%= form_tag store_index_path, method: 'get', class: 'locale' do %>
-          <%= select_tag 'set_locale', options_for_select(LANGUAGES, I18n.locale.to_s),
-              onchange: 'this.form.submit()' %>
-          <%= submit_tag 'submit', data: {'locale-target' => 'submit'} %>
-        <% end %>
-      </aside>
+    <header class="bg-yellow-500/25 py-4 px-6 flex items-center justify-between">
+      <div class="flex items-center space-x-4">
+        <%= image_tag 'my_header_logo.png', class: 'h-16' %>
 
-      <%= image_tag 'my_header_logo.png', class: 'h-16' %>
-      <h1><%= @page_title %></h1>
+        <% unless session[:user_id] %>
+          <aside data-controller="locale">
+            <%= form_tag store_index_path, method: 'get', class: 'locale flex items-center space-x-4' do %>
+              <%= select_tag 'set_locale', options_for_select(LANGUAGES, I18n.locale.to_s),
+                  onchange: 'this.form.submit()', class: 'px-1 py-1 pr-7 border rounded-lg bg-yellow-500/25 focus:outline-none focus:ring focus:border-blue-500' %>
+              <%= submit_tag 'Submit', data: { 'locale-target' => 'submit' }, class: 'px-4 py-2 bg-yellow-500/25 rounded-lg hover:bg-blue-600' %>
+            <% end %>
+          </aside>
+        <% end %>
+      </div>
+
+      <h1 class="text-2xl font-semibold"><%= @page_title %></h1>
     </header>
 
     <section class='flex'>

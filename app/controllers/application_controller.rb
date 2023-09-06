@@ -32,4 +32,8 @@ class ApplicationController < ActionController::Base
       redirect_to login_url, notice: "Please Log in"
     end
   end
+
+  def default_url_options
+    { locale: I18n.locale }
+  end
 end
