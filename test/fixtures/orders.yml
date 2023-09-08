@@ -14,3 +14,20 @@ two:
  email: MyString
  pay_type: 2
  po_number: '754345342'
+
+another_one:
+  name: Dave Tomas
+  address: 123 Any St
+  email: dave@example.org
+  pay_type: Check
+  routing_number: '2132132141'
+  account_number: '768754323'
+  created_at: <%= 2.days.ago %>
+
+other_customer:
+  name: Chris Jones
+  address: 456 Somewhere Ln
+  email: chris@somewhere.net
+  pay_type: Check
+  routing_number: '256543231'
+  account_number: '543543534'
