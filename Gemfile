@@ -80,3 +80,5 @@ group :test do
   # gem "webdrivers", "~> 5.2.0"
   gem 'launchy'
 end
+
+gem "pg", "~> 1.5", :group => :production
