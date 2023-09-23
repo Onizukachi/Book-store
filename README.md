@@ -1,25 +1,54 @@
-# README
+# Book-store - Ruby on Rails Store
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Installation
 
-Things you may want to cover:
+* Connect to PostgreSQL database
 
-* Ruby version
+```
+sudo -u postgres psql
+```
 
-* System dependencies
+* Create user `depot`
 
-* Configuration
+```
+CREATE USER depot WITH CREATEDB PASSWORD '123';
+```
 
-* Database creation
+* Copy file `.env.sample` to file `.env` and ensure that your DB credentials are correct in this file:
 
-* Database initialization
+```
+DB_USERNAME=depot
+DB_PASSWORD=123
+DB_HOST=localhost
+```
 
-* How to run the test suite
+* Clone this repository
 
-* Services (job queues, cache servers, search engines, etc.)
+```
+git clone git@github.com:yesnik/depot.git
+```
 
-* Deployment instructions
+* Install dependencies
 
-* ...
-# Book-store
+```
+cd depot
+bundle install
+```
+
+* Create database, run migrations and apply seeds
+
+```
+rails db:setup
+```
+
+* Run development server
+
+```
+rails s
+```
+
+* Visit site 
+
+  - Public area: http://0.0.0.0:3000/
+
+  - Admin area (any login/password for the first time): http://0.0.0.0:3000/admin
